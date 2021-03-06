@@ -1,0 +1,194 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0",
+    "title": "CRUD - Note API",
+    "description": "API designed to Create, Read, Update and Delete Note"
+  },
+  "servers": [
+    {
+      "url": "http://127.0.0.1:1234/",
+      "description": "Local server"
+    }
+  ],
+  "paths": {
+    "/notes": {
+      "get": {
+        "summary": "Get notes",
+        "description": "Get all the notes stored in the database",
+        "operationId": "get_notes",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ArrayOfNotes"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Post a new note",
+        "description": "Store a new note to the database",
+        "operationId": "add_note",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NoteStored"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/notes/{id}": {
+      "get": {
+        "summary": "Get note",
+        "description": "Get the note whose id is given in parameter",
+        "operationId": "get_note",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Note ID",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ArrayOfNotes"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a note",
+        "description": "Update the details of a note",
+        "operationId": "update_note",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Note ID",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NoteUpdated"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a note",
+        "description": "Delete the note whose id is given in parameter",
+        "operationId": "remove_note",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Note ID",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NoteDeleted"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ArrayOfNotes": {
+        "title": "Response",
+        "type": "object",
+        "properties": {
+          "results": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "description": "id of the note",
+                  "example": "1"
+                },
+                "note": {
+                  "type": "string",
+                  "description": "Note",
+                  "example": "This is just an example note"
+                },
+                "timestamp": {
+                  "type": "string",
+                  "description": "time when the note was created",
+                  "example": "12:16:28 PM"
+                }
+              }
+            }
+          },
+          "status": {
+            "type": "string",
+            "description": "Four possible statuses:\n \n* `OK`: No errors occurred. \n* `INVALID_REQUEST`: Either lat or lng parameters are missing or invalid. \n* `INVALID_DATE`: The date parameter is missing or invalid; \n* `UNKNOWN_ERROR`: The request could not be processed due to a server error. The request may succeed if you try again.",
+            "example": "OK"
+          }
+        }
+      },
+      "NoteStored": {
+        "title": "Response",
+        "type": "string",
+        "description": "Note stored"
+      },
+      "NoteUpdated": {
+        "title": "Response",
+        "type": "string",
+        "description": "Note updated"
+      },
+      "NoteDeleted": {
+        "title": "Response",
+        "type": "string",
+        "description": "Note Deleted"
+      }
+    }
+  }
+}
