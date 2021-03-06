@@ -10,3 +10,8 @@ pip install requirements.txt
 ```
 python api.py
 ```
+
+## Open API Doc:
+JSON file: [https://github.com/nishant-boro/notes-rest-api/blob/master/openapi.json](openapi.json)
+
+YAML file: [https://github.com/nishant-boro/notes-rest-api/blob/master/openapi.yaml](openapi.yaml)
